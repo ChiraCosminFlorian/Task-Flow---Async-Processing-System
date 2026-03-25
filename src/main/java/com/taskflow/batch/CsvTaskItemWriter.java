@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +20,7 @@ public class CsvTaskItemWriter implements ItemWriter<JobTask> {
     private final RabbitTemplate rabbitTemplate;
 
     @Override
-    public void write(Chunk<? extends JobTask> chunk) {
+    public void write(@NonNull Chunk<? extends JobTask> chunk) {
         for (JobTask task : chunk) {
             JobTask saved = jobTaskRepository.save(task);
             log.info("Saved task from CSV: id={}, type={}", saved.getId(), saved.getTaskType());

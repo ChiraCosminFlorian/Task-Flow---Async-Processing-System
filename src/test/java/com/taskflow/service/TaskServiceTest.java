@@ -108,6 +108,6 @@ class TaskServiceTest {
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("Only FAILED tasks can be retried");
 
-        verify(rabbitTemplate, never()).convertAndSend(anyString(), anyString(), any());
+        verify(rabbitTemplate, never()).convertAndSend(anyString(), anyString(), any(Object.class));
     }
 }

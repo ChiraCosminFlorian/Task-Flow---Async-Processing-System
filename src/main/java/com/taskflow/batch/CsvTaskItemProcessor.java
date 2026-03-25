@@ -6,6 +6,7 @@ import com.taskflow.model.TaskStatus;
 import com.taskflow.model.TaskType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class CsvTaskItemProcessor implements ItemProcessor<CsvTaskRecord, JobTask> {
 
     @Override
-    public JobTask process(CsvTaskRecord item) {
+    public JobTask process(@NonNull CsvTaskRecord item) {
         TaskType taskType;
         try {
             taskType = TaskType.valueOf(item.taskType().trim().toUpperCase());
