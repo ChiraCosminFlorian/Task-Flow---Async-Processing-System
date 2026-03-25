@@ -1,21 +1,15 @@
 package com.taskflow.controller;
 
-import com.taskflow.batch.CsvTaskItemReader;
-import com.taskflow.dto.CsvTaskRecord;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -41,11 +35,6 @@ public class BatchController {
             // Save uploaded file to a temp location
             Path tempFile = Files.createTempFile("csv-import-", ".csv");
             file.transferTo(tempFile.toFile());
-
-            // Create a reader for the uploaded file
-            FlatFileItemReader<CsvTaskRecord> reader = CsvTaskItemReader.create(
-                    new FileSystemResource(tempFile.toFile())
-            );
 
             JobParameters params = new JobParametersBuilder()
                     .addString("inputFile", tempFile.toAbsolutePath().toString())
