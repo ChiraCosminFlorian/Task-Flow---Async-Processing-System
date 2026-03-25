@@ -1,0 +1,11 @@
+.mvn/
+target/
+*.iml
+*.iws
+*.ipr
+.idea/
+*.class
+*.jar
+*.war
+*.log
+application-local.yml
